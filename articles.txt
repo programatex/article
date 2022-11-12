@@ -1,0 +1,23 @@
+// 記事の一覧
+// path,title,status
+// status 一応完成:0 書きかけ:1 変更予定あり:2
+
+home,home,1
+
+mathtest,数式のテスト,0
+graphtest,グラフのテスト,0
+bintodec,2進数文字列から数値型への変換,0
+digit,整数の桁ごとの値を取得,1
+triangle_shape,三角形の形状,0
+vector,ベクトル,1
+exponentiation,自然数累乗,0
+factonal,自然数階乗,1
+permutation,順列,1
+quadraticequation,二次方程式,1
+quadraticequation_discriminant,二次方程式 - 判別式,1
+circle-radius_diameter,円の半径と直径,1
+primefactorization,素因数分解,1
+reference/library,使用ライブラリ,1
+reference/articlefile,記事のファイル形式について,1
+reference/standard,記事の標準の書式について,1
+schedule/articles,記事の予定,2
