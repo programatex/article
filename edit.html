@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .byouga input {
+        margin: 0;
+        padding: 0 5;
+        display: block;
+        border: none;
+        border-bottom: solid 1px #000;
+        width: 100%;
+    }
+
+    input:focus {
+        outline: none;
+    }
+
+    .byouga {
+        border: solid 1px #000;
+    }
+</style>
+
+<body>
+    <label>ファイル名:<input type="text" id="filenameyouso" value="markdown"></label>
+    <label>時間をファイル名に含む:<input type="checkbox" id="intime"></label>
+    <select name="kakuchousi" id="kakuchousi">
+	    <option value=".md">.md</option>
+	    <option value=".txt">.txt</option>
+	</select>
+    <button onclick="create_md()">ダウンロード</button>
+    <button onclick="newgyou()">行を追加</button>
+    <button onclick="tuikamd('title')">タイトル</button>
+    <div id="byouga" class="byouga">
+
+    </div>
+
+</body>
+<script>
+    i = 0
+    filename = ""
+
+    function newgyou(tf1) {
+        data = []
+        for (let index = 0; index < i; index++) {
+            data[data.length] = document.getElementById('gyou' + index).value
+        }
+        document.getElementById('byouga').innerHTML += '<input type="text" name="" id="gyou' + i + '">'
+        for (let index = 0; index < i; index++) {
+            document.getElementById('gyou' + index).value = data[index]
+        }
+
+        if (tf1 == true) {
+            document.getElementById('gyou' + i).focus();
+        }
+        i++
+    }
+    newgyou()
+    document.body.addEventListener('keydown', event => {
+        if (event.key === 'Enter' && document.getElementById("gyou" + String(i - 1)) === document.activeElement) {
+            newgyou(true)
+        }
+        if (event.key === 'ArrowDown') {
+            if (document.getElementById("gyou" + String(i - 1)) === document.activeElement) {
+                newgyou(true)
+            } else {
+                document.getElementById("gyou" + String(parseFloat(document.activeElement.id.slice(4)) + 1)).focus();
+            }
+        }
+        if (event.key === 'ArrowUp') {
+            if (document.getElementById("gyou0") === document.activeElement) { } else {
+                document.getElementById("gyou" + String(parseFloat(document.activeElement.id.slice(4)) - 1)).focus();
+            }
+        }
+    });
+
+    //現在スタックされているデータをCSVに変換してダウンロードする
+    function create_md() {
+
+        //作った二次元配列をCSV文字列に直す。
+        let csv_string = "";
+        for (let d = 0; d < data.length; d++) {
+            csv_string += data[d]
+            csv_string += '\r\n';
+
+        }
+
+        //時刻の取得
+        now = new Date();
+        nowtime = " " + String(now.getFullYear()) + "-" + String(now.getMonth()) + String(now.getDate()) + "-" + String(now.getHours()) + String(now.getMinutes()) + String(now.getSeconds())
+
+
+        //ファイル名の指定
+        if (document.getElementById('intime').checked == true) {
+            file_name = document.getElementById('filenameyouso').value + nowtime + document.getElementById('kakuchousi').value
+        } else {
+            file_name = document.getElementById('filenameyouso').value + document.getElementById('kakuchousi').value
+            
+        }
+
+        //CSVのバイナリデータを作る
+        let blob = new Blob([csv_string], { type: "text/markdown" });
+        let uri = URL.createObjectURL(blob);
+
+        //リンクタグを作る
+        let link = document.createElement("a");
+        link.download = file_name;
+        link.href = uri;
+
+        //作ったリンクタグをクリックさせる
+        document.body.appendChild(link);
+        link.click();
+
+        //クリックしたら即リンクタグを消す
+        document.body.removeChild(link);
+        delete link;
+
+    }
+
+
+</script>
+
+</html>
