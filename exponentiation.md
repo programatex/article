@@ -6,12 +6,12 @@
 ループを用いて1にxをn回掛ける  
 
 ## 数学的な解説
-\(x^n\) は xをn回掛けたもの  
+\(x^n\) は \(x\)を\(n\)回掛けたもの  
 
 例) \(2^3\) の場合は、\(2\times2\times2=8\)  
 
 ## javascriptのプログラム例
-引数x,nに整数としてx^nを渡すと結果の整数が返り値になります  
+引数x,nに整数として\(x^n\)を渡すと結果の整数が返り値になります  
 ```js
 function exponentiation(x,n) {
     let result = 1;
@@ -23,7 +23,7 @@ function exponentiation(x,n) {
 ```
 
 ## Cのプログラム例
-引数x,nに整数としてx^nを渡すと結果の整数が返り値になります  
+引数x,nに整数として\(x^n\)を渡すと結果の整数が返り値になります  
 ```c
 int exponentiation(int x,int n) {
     int result = 1;
